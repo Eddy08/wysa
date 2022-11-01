@@ -1,13 +1,29 @@
 .container {
   padding: 0 2rem;
 }
+.mainGrid{
+  display:grid;
+  min-height: 100vh;
+  padding: 4rem 0;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  border:red 2px solid;
 
+}
 .main {
   min-height: 100vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
 }
