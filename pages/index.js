@@ -18,7 +18,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Chat With <a href="/chat"> Wysa 🐧!</a>
+          Chat With <Link href="/chat"> Wysa 🐧!</Link>
         </h1>
 
         <p className={styles.description}>
@@ -26,15 +26,15 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="/chat" className={styles.card}>
+          <Link href="/chat" className={styles.card}>
             <h2>Chat &rarr; 📧</h2>
             <p>Chat With A Bot About Your Feelings 🗣.</p>
-          </a>
+          </Link>
 
-          <a href="/port" className={styles.card}>
+          <Link href="/import" className={styles.card}>
             <h2>Import Data &rarr; 📥</h2>
             <p>Import Data From Previous Conversation with Wysa !</p>
-          </a>
+          </Link>
         </div>
       </main>
 
