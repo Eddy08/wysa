@@ -2,11 +2,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getIronSession } from "iron-session/edge";
-export type User = {
-  isLoggedIn: boolean;
-  login: string;
-  avatarUrl: string;
-};
+
 
 export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next();
