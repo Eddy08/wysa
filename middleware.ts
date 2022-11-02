@@ -3,43 +3,32 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getIronSession } from "iron-session/edge";
 
+export function middleware(request: NextRequest) {
+  // Assume a "Cookie:vercel=fast" header to be present on the incoming request
+  // Getting cookies from the request using the `RequestCookies` API
+  let cookie = request.cookies.get('nextjs')?.value
+  console.log(cookie) // => 'fast'
+  const allCookies = request.cookies.getAll()
+  console.log(allCookies) // => [{ name: 'vercel', value: 'fast' }]
 
-export const middleware = async (req: NextRequest) => {
-  const res = NextResponse.next();
-  console.log(res)
-  const session = await getIronSession(req, res, {
-    cookieName: "myapp_cookiename",
-    password: "complex_password_at_least_32_characters_long",
-    // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
-    cookieOptions: {
-      secure: process.env.NODE_ENV === "production",
-    },
-  });
+  request.cookies.has('nextjs') // => true
+  request.cookies.delete('nextjs')
+  request.cookies.has('nextjs') // => false
 
-  // do anything with session here:
-  const { user } = session;
+  // Setting cookies on the response using the `ResponseCookies` API
+  const response = NextResponse.next()
+  response.cookies.set('vercel', 'fast')
+  response.cookies.set({
+    name: 'vercel',
+    value: 'fast',
+    path: '/test',
+  })
+   let cookieValue = response.cookies.get('vercel')
+  console.log(cookieValue) // => { name: 'vercel', value: 'fast', Path: '/test' }
+  // The outgoing response will have a `Set-Cookie:vercel=fast;path=/test` header.
 
-  // like mutate user:
-  // user.something = someOtherThing;
-  // or:
-  // session.user = someoneElse;
-
-  // uncomment next line to commit changes:
-  // await session.save();
-  // or maybe you want to destroy session:
-  // await session.destroy();
-
-  console.log("from middleware", { user });
-  // demo:
-  // change the condition otherwise will not work
-  if (user?.admin === "true") {
-    // unauthorized to see pages inside admin/
-    return NextResponse.redirect(new URL('/unauthorized', req.url)) // redirect to /unauthorized page
-  }
-
-  return res;
-};
-
+  return response
+}
 export const config = {
   matcher: [
     /*
