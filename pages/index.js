@@ -26,6 +26,10 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
+        <Link href="/profile" className={styles.card}>
+            <h2>Signup &rarr; 🔐</h2>
+            <p>Signup and Start the Chat  🏁 with Wysa.</p>
+          </Link>
           <Link href="/chat" className={styles.card}>
             <h2>Chat &rarr; 📧</h2>
             <p>Chat With A Bot About Your Feelings 🗣.</p>
